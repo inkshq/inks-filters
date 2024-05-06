@@ -1,0 +1,18 @@
+[
+  {
+    "page": "/:owner/:repo/pulls",
+    "filter": {
+      "field": "pathname",
+      "op": "startsWith",
+      "value": "/:owner/:repo/pull/"
+    }
+  },
+  {
+    "page": "/:owner/:repo/releases",
+    "filter": {
+      "field": "pathname",
+      "op": "startsWith",
+      "value": "/:owner/:repo/releases/tag/"
+    }
+  }
+]
