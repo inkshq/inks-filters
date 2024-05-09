@@ -12,28 +12,30 @@ function acceptRule(rule: Rule, url: URL, innerText: string): boolean {
     pathname: url.pathname,
     text: innerText,
   }
-  const field = fieldRecord[rule.field]
+  const field = fieldRecord[rule.field]?.toLowerCase()
 
   if (!field) {
     return false
   }
 
+  const value = rule.value.toLowerCase()
+
   switch (rule.op) {
     case 'equals':
-      return field == rule.value
+      return field == value
     case 'not-equals':
-      return field != rule.value
+      return field != value
     case 'startsWith':
     case 'endsWith':
-      return field[rule.op](rule.value)
+      return field[rule.op](value)
     case 'not-startsWith':
-      return !field.startsWith(rule.value)
+      return !field.startsWith(value)
     case 'not-endsWith':
-      return !field.endsWith(rule.value)
+      return !field.endsWith(value)
     case 'contains':
-      return field.includes(rule.value)
+      return field.includes(value)
     case 'not-contains':
-      return !field.includes(rule.value)
+      return !field.includes(value)
     default:
       catchUnhandledCase(rule.op)
       return false
