@@ -12,9 +12,15 @@ function bringBackTrailingSlash(path: string, original: string) {
 
 function renderRule(rule: Rule, params: Params<string>) {
   const trailingSlash = rule.value.endsWith('/')
+  let value = generatePath(rule.value, params)
+  const index = rule.value.indexOf('#')
+  if (index) {
+    value =
+      generatePath(rule.value.slice(0, index), params) + rule.value.slice(index)
+  }
   return {
     ...rule,
-    value: bringBackTrailingSlash(generatePath(rule.value, params), rule.value),
+    value: bringBackTrailingSlash(value, rule.value),
   }
 }
 

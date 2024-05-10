@@ -1,5 +1,13 @@
 [
   {
+    "page": "/:owner/:repo/issues/:id",
+    "filter": {
+      "field": "url",
+      "op": "contains",
+      "value": "/:owner/:repo/issues/:id#issue"
+    }
+  },
+  {
     "page": "/:owner/:repo/pulls",
     "filter": {
       "field": "pathname",

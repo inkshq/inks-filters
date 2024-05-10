@@ -14,6 +14,16 @@ interface Case {
 const CASES: Record<string, Case[]> = {
   'github.com': [
     {
+      page: 'https://github.com/vercel/next.js/issues/61318',
+      filter: {
+        field: 'url',
+        op: 'contains',
+        value: '/vercel/next.js/issues/61318#issue',
+      },
+      accept: [],
+      reject: [],
+    },
+    {
       page: 'https://github.com/vercel/next.js/releases',
       filter: {
         field: 'pathname',
@@ -46,7 +56,7 @@ for (const file of files) {
           expect().fail()
           return
         }
-        test('match', () => {
+        test(`match ${c.page}`, () => {
           expect(matched).toEqual(c.filter)
         })
         test.each(c.accept)('accept %s', (href) => {
