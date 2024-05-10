@@ -2,9 +2,19 @@
   {
     "page": "/:owner/:repo/issues/:id",
     "filter": {
-      "field": "url",
-      "op": "contains",
-      "value": "/:owner/:repo/issues/:id#issue"
+      "op": "and",
+      "rules": [
+        {
+          "field": "url",
+          "op": "contains",
+          "value": "/:owner/:repo/issues/:id#issue"
+        },
+        {
+          "field": "url",
+          "op": "not-contains",
+          "value": "comment-box"
+        }
+      ]
     }
   },
   {

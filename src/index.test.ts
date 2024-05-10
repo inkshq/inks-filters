@@ -16,9 +16,19 @@ const CASES: Record<string, Case[]> = {
     {
       page: 'https://github.com/vercel/next.js/issues/61318',
       filter: {
-        field: 'url',
-        op: 'contains',
-        value: '/vercel/next.js/issues/61318#issue',
+        op: 'and',
+        rules: [
+          {
+            field: 'url',
+            op: 'contains',
+            value: '/vercel/next.js/issues/61318#issue',
+          },
+          {
+            field: 'url',
+            op: 'not-contains',
+            value: 'comment-box',
+          },
+        ],
       },
       accept: [],
       reject: [],
