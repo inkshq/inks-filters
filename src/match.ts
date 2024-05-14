@@ -14,7 +14,7 @@ function renderRule(rule: Rule, params: Params<string>) {
   const trailingSlash = rule.value.endsWith('/')
   let value = generatePath(rule.value, params)
   const index = rule.value.indexOf('#')
-  if (index) {
+  if (index > 0) {
     value =
       generatePath(rule.value.slice(0, index), params) + rule.value.slice(index)
   }

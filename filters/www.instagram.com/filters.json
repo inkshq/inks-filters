@@ -1,0 +1,10 @@
+[
+  {
+    "page": "/:id",
+    "filter": {
+      "field": "pathname",
+      "op": "startsWith",
+      "value": "/:id/"
+    }
+  }
+]
