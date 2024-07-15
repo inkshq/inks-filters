@@ -2,7 +2,7 @@ import path from 'path'
 import { readdir } from 'fs/promises'
 import { describe, test, expect } from 'bun:test'
 import { Filter, accept, match } from './index.js'
-import { filterListSchema } from './schema.js'
+import { filterListSchema, filterSchema } from './schema.js'
 
 interface Case {
   page: string
@@ -12,7 +12,7 @@ interface Case {
 }
 
 const CASES: Record<string, Case[]> = {
-  'github.com1': [
+  'github.com': [
     {
       page: 'https://github.com/vercel/next.js/issues/61318',
       filter: {
@@ -86,4 +86,26 @@ for (const file of files) {
       })
     }
   }
+}
+
+const textCases = [
+  {
+    filter: {
+      field: 'text',
+      op: 'contains',
+      value: 'under tree, sea,',
+    },
+    accept: ['Over rock and under tree', 'By streams that never find the sea'],
+    reject: ['Roads go ever ever on', 'By caves where never sun has shone'],
+  },
+]
+
+for (const c of textCases) {
+  const filter = filterSchema.parse(c.filter)
+  test.each(c.accept)('accept %s', (text) => {
+    expect(accept(filter, 'http://localhost', text)).toBe(true)
+  })
+  test.each(c.reject)('accept %s', (text) => {
+    expect(accept(filter, 'http://localhost', text)).toBe(false)
+  })
 }

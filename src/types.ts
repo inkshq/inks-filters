@@ -1,16 +1,18 @@
 export type RuleField = 'url' | 'pathname' | 'text'
 
+export type RuleOp =
+  | 'equals'
+  | 'not-equals'
+  | 'startsWith'
+  | 'not-startsWith'
+  | 'endsWith'
+  | 'not-endsWith'
+  | 'contains'
+  | 'not-contains'
+
 export interface Rule {
   field: RuleField
-  op:
-    | 'equals'
-    | 'not-equals'
-    | 'startsWith'
-    | 'not-startsWith'
-    | 'endsWith'
-    | 'not-endsWith'
-    | 'contains'
-    | 'not-contains'
+  op: RuleOp
   /**
    * @minLength 1
    */
