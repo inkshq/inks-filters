@@ -98,6 +98,15 @@ const textCases = [
     accept: ['Over rock and under tree', 'By streams that never find the sea'],
     reject: ['Roads go ever ever on', 'By caves where never sun has shone'],
   },
+  {
+    filter: {
+      field: 'text',
+      op: 'contains',
+      value: 'rock, " the "',
+    },
+    accept: ['Over rock and under tree', 'By streams that never find the sea'],
+    reject: ['there is their thesis', 'By caves where never sun has shone'],
+  },
 ]
 
 for (const c of textCases) {
@@ -105,7 +114,7 @@ for (const c of textCases) {
   test.each(c.accept)('accept %s', (text) => {
     expect(accept(filter, 'http://localhost', text)).toBe(true)
   })
-  test.each(c.reject)('accept %s', (text) => {
+  test.each(c.reject)('reject %s', (text) => {
     expect(accept(filter, 'http://localhost', text)).toBe(false)
   })
 }

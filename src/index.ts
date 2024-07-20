@@ -29,6 +29,13 @@ function acceptRuleValue(field: string, op: RuleOp, value: string): boolean {
   }
 }
 
+function stripQuotes(text: string) {
+  if (text[0] == text.at(-1) && ["'", '"'].includes(text[0])) {
+    return text.slice(1, -1)
+  }
+  return text
+}
+
 function acceptRule(rule: Rule, url: URL, innerText: string): boolean {
   const fieldRecord: Record<RuleField, string> = {
     url: url.toString(),
@@ -45,6 +52,7 @@ function acceptRule(rule: Rule, url: URL, innerText: string): boolean {
     .toLowerCase()
     .split(',')
     .map((x) => x.trim())
+    .map((x) => stripQuotes(x))
     .filter(Boolean)
 
   return values.some((value) => acceptRuleValue(field, rule.op, value))
