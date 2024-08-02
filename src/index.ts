@@ -71,6 +71,6 @@ export function accept(filter: Filter, href: string, innerText = ''): boolean {
   }
 }
 
-export function isVaildFilter(filter: unknown) {
+export function isValidFilter(filter: unknown) {
   return filterSchema.safeParse(filter).success
 }
