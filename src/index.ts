@@ -55,7 +55,8 @@ function acceptRule(rule: Rule, url: URL, innerText: string): boolean {
     .map((x) => stripQuotes(x))
     .filter(Boolean)
 
-  return values.some((value) => acceptRuleValue(field, rule.op, value))
+  const fn = rule.op.startsWith('not-') ? 'every' : 'some'
+  return values[fn]((value) => acceptRuleValue(field, rule.op, value))
 }
 
 export function accept(filter: Filter, href: string, innerText = ''): boolean {

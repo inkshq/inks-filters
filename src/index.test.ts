@@ -118,3 +118,25 @@ for (const c of textCases) {
     expect(accept(filter, 'http://localhost', text)).toBe(false)
   })
 }
+
+const urlCases = [
+  {
+    filter: {
+      field: 'pathname',
+      op: 'not-startsWith',
+      value: '/p1/, /q2/',
+    },
+    accept: ['http://example.com/r1/abc'],
+    reject: ['http://example.com/p1/abc'],
+  },
+]
+
+for (const c of urlCases) {
+  const filter = filterSchema.parse(c.filter)
+  test.each(c.accept)('accept %s', (url) => {
+    expect(accept(filter, url)).toBe(true)
+  })
+  test.each(c.reject)('reject %s', (url) => {
+    expect(accept(filter, url)).toBe(false)
+  })
+}
