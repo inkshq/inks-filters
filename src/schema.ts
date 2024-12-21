@@ -7,18 +7,21 @@ export const ruleFieldSchema = z.union([
   z.literal('text'),
 ])
 
+export const ruleOpSchema = z.union([
+  z.literal('equals'),
+  z.literal('not-equals'),
+  z.literal('startsWith'),
+  z.literal('not-startsWith'),
+  z.literal('endsWith'),
+  z.literal('not-endsWith'),
+  z.literal('contains'),
+  z.literal('not-contains'),
+  z.literal('regex'),
+])
+
 export const ruleSchema = z.object({
   field: ruleFieldSchema,
-  op: z.union([
-    z.literal('equals'),
-    z.literal('not-equals'),
-    z.literal('startsWith'),
-    z.literal('not-startsWith'),
-    z.literal('endsWith'),
-    z.literal('not-endsWith'),
-    z.literal('contains'),
-    z.literal('not-contains'),
-  ]),
+  op: ruleOpSchema,
   value: z.string().min(1),
 })
 

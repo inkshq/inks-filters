@@ -9,6 +9,7 @@ export type RuleOp =
   | 'not-endsWith'
   | 'contains'
   | 'not-contains'
+  | 'regex'
 
 export interface Rule {
   field: RuleField

@@ -23,6 +23,10 @@ function acceptRuleValue(field: string, op: RuleOp, value: string): boolean {
       return field.includes(value)
     case 'not-contains':
       return !field.includes(value)
+    case 'regex':
+      return new RegExp(
+        value.replaceAll('*', '.*').replaceAll('..*', '.*'),
+      ).test(field)
     default:
       catchUnhandledCase(op)
       return false
